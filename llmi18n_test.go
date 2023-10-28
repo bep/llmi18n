@@ -17,5 +17,6 @@ func TestTranslatei18nYAMLFile(t *testing.T) {
 
 	res, err := TranslatedQuotedStrings(string(b))
 	c.Assert(err, qt.IsNil)
+	//
 	c.Assert(res, qt.Contains, "one: \"Übersetzung\"")
 }
