@@ -90,6 +90,36 @@ Translate the quoted strings above to de. Preserve the format as is. No introduc
 	return result, nil
 }
 
+func TranslatedQuotedStringsStream(s string, fn func(s string)) error {
+	p := prompt{
+		Model:  "mistral", // llama2, codellama, mistral
+		Stream: false,
+		Options: options{
+			// Mirostat:    1,
+			// MirostatEta: 0.1,
+			// MirostatTau: 5.0,
+			Temperature: 0.3,
+			Seed:        42,
+			// TopK:        3,
+			// TopP:        0.1,
+			// Stop:        []string{"Sure"},
+		},
+		Prompt: s + `
+
+Translate the quoted strings above to de. Preserve the format as is. No introduction or conclusion is needed.
+
+		
+`,
+	}
+
+	generate(p, func(r response) error {
+		fn(r.Response)
+		return nil
+	})
+
+	return nil
+}
+
 func generate(p prompt, fn func(r response) error) error {
 	url := ollamaBaseURL + ollamaEndpointGenerate
 
