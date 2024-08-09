@@ -93,7 +93,7 @@ Translate the quoted strings above to de. Preserve the format as is. No introduc
 func TranslatedQuotedStringsStream(s string, fn func(s string)) error {
 	p := prompt{
 		Model:  "mistral", // llama2, codellama, mistral
-		Stream: false,
+		Stream: true,
 		Options: options{
 			// Mirostat:    1,
 			// MirostatEta: 0.1,
